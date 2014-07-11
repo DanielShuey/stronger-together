@@ -1,0 +1,13 @@
+{
+  "author": "Daniel Shuey",
+  "name": "stronger-together",
+  "description": "Traits for Javascript",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/DanielShuey/stronger-together"
+  },
+  "main": "./lib/stronger-together",
+  "keywords": [
+  ],
+  "dependencies": {}
+}
