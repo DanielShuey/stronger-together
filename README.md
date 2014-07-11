@@ -14,7 +14,7 @@
 
 ##Setup
 
-require('stronger-together.js').load()
+`require('stronger-together.js').load()`
 
 
 ## Detailed Example
@@ -33,8 +33,9 @@ require('stronger-together.js').load()
     $ (new Shark).with('tornado').name
     $ => Sharknado
 
+***
 
-#### `Static Trait`
+#### Static Trait
 
     class Animal extends Traitable
       @with Flying
@@ -48,8 +49,9 @@ require('stronger-together.js').load()
     $ animal.fly()
     $ => "I am flying!"
 
+***
 
-#### `Dynamic Trait`
+#### Dynamic Trait
 
     class Animal extends Traitable
       fly: -> 'I flap my arms but I do not get off the ground'
@@ -67,8 +69,9 @@ require('stronger-together.js').load()
     $ animal.fly()
     $ => "I am flying!"
 
+***
 
-#### `Sub Trait`
+#### Sub Trait
 
 
     class Animal extends Traitable
