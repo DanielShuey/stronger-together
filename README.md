@@ -1,26 +1,88 @@
-stronger-together
-=================
+# Stronger Together
+*Dynamic traits for Javascript*
 
-Mixin style Traits
+    (new Archer).with('bow').with('arrow').shoot()
 
-class Foo
-  with Bar
+    (new Archer).with(Bow).with('arrow').shoot()
 
-Dynamic Traits
+    Archer
+      @with Bow
+      @with Arrow
 
-(new Foo).with(Bar)
+    (new Archer).shoot()
 
-Dynamic Anonymous Trait
 
-(new Foo).with ->
-  hello = ->
-    console.log 'hello'
+##Setup
 
-Subtraits
+require('stronger-together.js').load()
 
-class Foo
-  trait bar
-    hello = ->
-      console.log 'hello'
 
-(new Foo).with(-> bar)
+## Detailed Example
+
+    class Shark extends Traitable
+      setName: (name) -> @name = name
+
+      @trait 'tornado',
+        on_include: ->
+          setName('Sharknado')
+
+        exitTornado: -> ...
+
+>
+
+    $ (new Shark).with('tornado').name
+    $ => Sharknado
+
+
+#### `Static Trait`
+
+    class Animal extends Traitable
+      @with Flying
+
+    class Flying extends Trait
+      fly: -> 'I am flying!'
+
+>
+
+    $ animal = new Animal
+    $ animal.fly()
+    $ => "I am flying!"
+
+
+#### `Dynamic Trait`
+
+    class Animal extends Traitable
+      fly: -> 'I flap my arms but I do not get off the ground'
+
+    class Flying extends Trait
+      fly: -> 'I am flying!'
+
+>
+
+    $ animal = new Animal
+    $ animal.fly()
+    $ => "I flap my arms but I do not get off the ground"
+
+    $ animal = (new Animal).with(Flying)
+    $ animal.fly()
+    $ => "I am flying!"
+
+
+#### `Sub Trait`
+
+
+    class Animal extends Traitable
+      fly: -> 'I flap my arms but I do not get off the ground'
+
+      @trait 'flying',
+        fly: -> 'I am flying!'
+
+>
+
+    $ animal = new Animal
+    $ animal.fly()
+    $ => "I flap my arms but I do not get off the ground"
+
+    $ animal = (new Animal).with('flying')
+    $ animal.fly()
+    $ => "I am flying!"
