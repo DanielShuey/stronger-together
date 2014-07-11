@@ -1,10 +1,10 @@
 
 class Trait
-  undefined
+  included:
+    undefined
 
 root['trait'] = (name, func) ->
   root[name] = class extends Trait
-    func()
 
 Object.trait = (name, func) ->
   console.log('asdfasdfas')
@@ -20,10 +20,12 @@ Object.with = (trait) ->
   else
     @_traits[trait]()
 
-class Foo
-  trait 'bar', ->
-    hello = ->
+Foo = class
+  @trait 'bar', ->
+    included: ->
+      console.log 'i am included'
+    hello: ->
       console.log 'hello'
 
-#foo = (new Foo).with('bar')
-#foo.hello()
+foo = (new Foo).with('bar')
+foo.hello()
