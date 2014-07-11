@@ -89,3 +89,21 @@
     $ animal = (new Animal).with('flying')
     $ animal.fly()
     $ => "I am flying!"
+
+***
+
+#### `on_include`
+
+*The on_include is an optional pseudo-constructor that runs when it is included into an object*
+
+    class Shark extends Traitable
+      setName: (name) -> @name = name
+
+      @trait 'tornado',
+        on_include: ->
+          setName('Sharknado')
+
+>
+
+    $ (new Shark).with('tornado').name
+    $ => Sharknado
