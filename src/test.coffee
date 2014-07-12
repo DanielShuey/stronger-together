@@ -2,10 +2,9 @@
 vows = require 'vows'
 assert = require 'assert'
 chai = require 'chai'
-st = require '../lib/stronger-together.js'
+require('../lib/stronger-together.js').load()
 
 chai.should()
-st.load()
 
 suite = vows.describe 'Traitable'
 
@@ -16,10 +15,28 @@ suite.addBatch
       topic: -> Traitable.trait 'bar', {a_method: -> false}
 
       'stores "bar" in traits datastore': ->
-        ('bar' of Traitable._traits).should.equal true
+        ('bar' of Traitable.traits()).should.equal true
 
       'contains the function passed in': ->
-        Traitable._traits['bar'].a_method().should.equal false
+        Traitable.traits()['bar'].a_method().should.equal false
+
+    'create same name trait in two different classes':
+      topic: ->
+        class SecondTraitable extends Traitable
+        class ThirdTraitable extends Traitable
+        SecondTraitable.trait 'bar', {a_method: -> false}
+        ThirdTraitable.trait 'bar', {a_method: -> true}
+        return ThirdTraitable
+
+      'stores "bar" in traits datastore': (traitable) ->
+        ('bar' of traitable.traits()).should.equal true
+
+      'Traitable function should be false': (traitable) ->
+        Traitable.traits()['bar'].a_method().should.equal false
+
+      'SecondTraitable function should be true': (traitable) ->
+        traitable.traits()['bar'].a_method().should.equal true
+
 
     'name is not string':
       'throws an error': ->

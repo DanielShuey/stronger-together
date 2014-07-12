@@ -1,5 +1,5 @@
 (function() {
-  var assert, chai, st, suite, vows,
+  var assert, chai, suite, vows,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -9,11 +9,9 @@
 
   chai = require('chai');
 
-  st = require('../lib/stronger-together.js');
+  require('../lib/stronger-together.js').load();
 
   chai.should();
-
-  st.load();
 
   suite = vows.describe('Traitable');
 
@@ -28,10 +26,55 @@
           });
         },
         'stores "bar" in traits datastore': function() {
-          return ('bar' in Traitable._traits).should.equal(true);
+          return ('bar' in Traitable.traits()).should.equal(true);
         },
         'contains the function passed in': function() {
-          return Traitable._traits['bar'].a_method().should.equal(false);
+          return Traitable.traits()['bar'].a_method().should.equal(false);
+        }
+      },
+      'create same name trait in two different classes': {
+        topic: function() {
+          var SecondTraitable, ThirdTraitable;
+          SecondTraitable = (function(_super) {
+            __extends(SecondTraitable, _super);
+
+            function SecondTraitable() {
+              return SecondTraitable.__super__.constructor.apply(this, arguments);
+            }
+
+            return SecondTraitable;
+
+          })(Traitable);
+          ThirdTraitable = (function(_super) {
+            __extends(ThirdTraitable, _super);
+
+            function ThirdTraitable() {
+              return ThirdTraitable.__super__.constructor.apply(this, arguments);
+            }
+
+            return ThirdTraitable;
+
+          })(Traitable);
+          SecondTraitable.trait('bar', {
+            a_method: function() {
+              return false;
+            }
+          });
+          ThirdTraitable.trait('bar', {
+            a_method: function() {
+              return true;
+            }
+          });
+          return ThirdTraitable;
+        },
+        'stores "bar" in traits datastore': function(traitable) {
+          return ('bar' in traitable.traits()).should.equal(true);
+        },
+        'Traitable function should be false': function(traitable) {
+          return Traitable.traits()['bar'].a_method().should.equal(false);
+        },
+        'SecondTraitable function should be true': function(traitable) {
+          return traitable.traits()['bar'].a_method().should.equal(true);
         }
       },
       'name is not string': {
