@@ -28,6 +28,7 @@
     class Shark extends Traitable
       @trait 'tornado',
         suffix: 'nado'
+        on_include: -> console.log "I've had it with these..."
 
       @trait 'mega'
         prefix: 'mega'
@@ -43,9 +44,11 @@
 >
 
     $ (new Shark).with('tornado').name()
+    $ => 'I've had it with these...'
     $ => sharknado
 
     $ (new Shark).with('mega').with('tornado').name()
+    $ => 'I've had it with these...'
     $ => megasharknado
 
 ***
