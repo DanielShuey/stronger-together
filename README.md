@@ -17,6 +17,7 @@
 `require('stronger-together.js').load()`
 
 *Patch all objects (don't need to extend Traitable)*
+
 `require('stronger-together.js').patch()`
 
 ## Detailed Example
