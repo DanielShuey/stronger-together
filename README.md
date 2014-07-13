@@ -97,7 +97,7 @@
 
 #### `on_include`
 
-*The on_include is an optional pseudo-constructor that runs when it is included into an object*
+*The on_include is an optional initializer that runs when it is included into an object*
 
     class Shark extends Traitable
       setName: (name) -> @name = name
