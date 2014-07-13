@@ -3,7 +3,7 @@
 
     (new Archer).with('bow').with('arrow').shoot()
 
-    (new Archer).with(Bow).with('arrow').shoot()
+    (new Archer).with(Bow).with(Arrow).shoot()
 
     Archer
       @with Bow
