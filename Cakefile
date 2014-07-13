@@ -14,5 +14,8 @@ task 'test', '', ->
   js = s.getConcatenation 'src/test.coffee', async: false, minify: false, bare: true
   fs.writeFileSync 'test/test.js', js
 
+  js = s.getConcatenation 'src/patch.coffee', async: false, minify: false, bare: true
+  fs.writeFileSync 'test/patch.js', js
+
   {spawn} = require 'child_process'
-  spawn("vows", ["--spec"], {stdio: "inherit"})
+  spawn("vows", ["test/test.js","test/patch.js","--spec"], {stdio: "inherit"})

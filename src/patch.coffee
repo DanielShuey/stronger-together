@@ -2,57 +2,43 @@
 vows = require 'vows'
 assert = require 'assert'
 chai = require 'chai'
-require('../lib/stronger-together.js').load()
+
+require('../lib/stronger-together.js').patch()
 
 chai.should()
 
-suite = vows.describe 'Traitable'
+suite = vows.describe 'Object'
 
-class SecondTraitable extends Traitable
+TraitableTwo = class
 
 suite.addBatch
 
   '.trait':
-    'name is "bar"':
-      topic: -> Traitable.trait 'bar', {a_method: -> false}
-
-      'stores "bar" in traits datastore': ->
-        ('bar' of Traitable.traits()).should.equal true
-
-      'contains the function passed in': ->
-        Traitable.traits()['bar'].a_method().should.equal false
 
     'create same name trait in two different classes':
       topic: ->
-        class ThirdTraitable extends Traitable
-        SecondTraitable.trait 'bar', {a_method: -> false}
-        ThirdTraitable.trait 'bar', {a_method: -> true}
-        return ThirdTraitable
+        class TraitableTwo
+          @trait 'bar', {a_method: -> false}
+        class TraitableThree
+          @trait 'bar', {a_method: -> true}
+        return TraitableThree
 
       'stores "bar" in traits datastore': (traitable) ->
         ('bar' of traitable.traits()).should.equal true
 
       'Traitable function should be false': (traitable) ->
-        SecondTraitable.traits()['bar'].a_method().should.equal false
+        TraitableTwo.traits()['bar'].a_method().should.equal false
 
       'SecondTraitable function should be true': (traitable) ->
         traitable.traits()['bar'].a_method().should.equal true
 
-
-    'name is not string':
-      'throws an error': ->
-         assert.throws (-> Traitable.trait false, {}), Error
-
-    'functions passed is wrong type':
-      'throws an error': ->
-         assert.throws (-> Traitable.trait 'trait', false), Error
 
   '.with':
     'Mix into Traitable Class, a Trait with method "fly" that returns true':
       topic: ->
         class Flyer extends Trait
           fly: -> true
-        class Bird extends Traitable
+        class Bird
           @with Flyer
 
         return new Bird
@@ -69,7 +55,7 @@ suite.addBatch
 
       'Throws error': (false_trait) ->
         assert.throws (->
-          class Bird extends Traitable
+          class Bird
             @with false_trait
         ), Error
 
@@ -78,7 +64,7 @@ suite.addBatch
       topic: ->
         class Flyer extends Trait
           fly: -> true
-        class Bird extends Traitable
+        class Bird
         (new Bird).with(Flyer)
 
       'Traitable#fly returns true': (topic) ->
@@ -86,7 +72,7 @@ suite.addBatch
 
     'Mix into Traitable instance, a Sub-trait with method "fly" that returns true':
       topic: ->
-        class Bird extends Traitable
+        class Bird
           @trait 'flyer',
             fly: -> true
 
