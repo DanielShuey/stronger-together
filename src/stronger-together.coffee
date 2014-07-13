@@ -1,3 +1,9 @@
+#********************************************************************#
+#*                                                                  *#
+#*                       Stronger Together                          *#
+#*                                                                  *#
+#********************************************************************#
+
 class StrongerTogether
   @_constructor_of: (obj) ->
     if obj.protoype? then obj else obj.constructor
