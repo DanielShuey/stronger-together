@@ -14,9 +14,11 @@
 
 ##Setup
 
+> Will update to NPM when I'm satisfied with it. Seems very simple and bug-free for the most part, but please submit bugs if you discover any.
+
 `require('stronger-together.js').load()`
 
-*Patch all objects (don't need to extend Traitable)*
+> *Patch all objects (don't need to extend Traitable)*
 
 `require('stronger-together.js').patch()`
 
@@ -113,19 +115,19 @@
 
 ## Credit
 
-Daniel Shuey - daniel.shuey@gmail.com
+*Daniel Shuey - daniel.shuey@gmail.com*
 
 ## License
 
-Copyright 2014 Daniel Shuey
+> Copyright 2014 Daniel Shuey
 
-Licensed under the Apache License, Version 2.0 (the "License");
+> Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+> http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
+> Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
