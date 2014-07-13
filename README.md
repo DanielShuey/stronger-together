@@ -13,8 +13,7 @@
 
 
 ##Setup
-
-> Will update to NPM when I'm satisfied with it. Seems very simple and bug-free for the most part, but please submit bugs if you discover any.
+> Will be updated to NPM when I'm satisfied with it
 
 `require('stronger-together.js').load()`
 
