@@ -19,7 +19,7 @@ Will be updated to NPM when I'm satisfied with it
 
 `require('stronger-together.js').load()`
 
-> *Patch all objects (so you don't need to extend Traitable)*
+> Use this to patch all objects (so you don't need to extend Traitable)*
 
 `require('stronger-together.js').patch()`
 
