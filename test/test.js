@@ -257,6 +257,88 @@
         'Traitable#fly returns true': function(traitable) {
           return traitable["with"]('flyer').fly().should.equal(true);
         }
+      },
+      'Chaining Traits': {
+        topic: function() {
+          var Bird, Flyer, Walker;
+          Flyer = (function(_super) {
+            __extends(Flyer, _super);
+
+            function Flyer() {
+              return Flyer.__super__.constructor.apply(this, arguments);
+            }
+
+            Flyer.prototype.fly = function() {
+              return true;
+            };
+
+            return Flyer;
+
+          })(Trait);
+          Walker = (function(_super) {
+            __extends(Walker, _super);
+
+            function Walker() {
+              return Walker.__super__.constructor.apply(this, arguments);
+            }
+
+            Walker.prototype.walk = function() {
+              return true;
+            };
+
+            return Walker;
+
+          })(Trait);
+          Bird = (function(_super) {
+            __extends(Bird, _super);
+
+            function Bird() {
+              return Bird.__super__.constructor.apply(this, arguments);
+            }
+
+            return Bird;
+
+          })(Traitable);
+          return (new Bird)["with"](Flyer)["with"](Walker);
+        },
+        'Traitable#fly returns true': function(topic) {
+          topic.fly().should.equal(true);
+          return topic.walk().should.equal(true);
+        }
+      },
+      'Chaining Subtraits': {
+        topic: function() {
+          var Bird;
+          Bird = (function(_super) {
+            __extends(Bird, _super);
+
+            function Bird() {
+              return Bird.__super__.constructor.apply(this, arguments);
+            }
+
+            Bird.trait('flyer', {
+              fly: function() {
+                return true;
+              }
+            });
+
+            Bird.trait('walker', {
+              walk: function() {
+                return true;
+              }
+            });
+
+            return Bird;
+
+          })(Traitable);
+          return new Bird;
+        },
+        'Traitable#fly returns true': function(traitable) {
+          var t;
+          t = traitable["with"]('walker')["with"]('flyer');
+          t.fly().should.equal(true);
+          return t.walk().should.equal(true);
+        }
       }
     }
   });

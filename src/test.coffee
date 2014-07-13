@@ -106,4 +106,34 @@ suite.addBatch
       'Traitable#fly returns true': (traitable) ->
         traitable.with('flyer').fly().should.equal true
 
+    'Chaining Traits':
+      topic: ->
+        class Flyer extends Trait
+          fly: -> true
+        class Walker extends Trait
+          walk: -> true
+        class Bird extends Traitable
+        (new Bird).with(Flyer).with(Walker)
+
+      'Traitable#fly returns true': (topic) ->
+        topic.fly().should.equal true
+        topic.walk().should.equal true
+
+    'Chaining Subtraits':
+      topic: ->
+        class Bird extends Traitable
+          @trait 'flyer',
+            fly: -> true
+
+          @trait 'walker',
+            walk: -> true
+
+        return new Bird
+
+      'Traitable#fly returns true': (traitable) ->
+        t = traitable.with('walker').with('flyer')
+        t.fly().should.equal true
+        t.walk().should.equal true
+
+
 suite.export module
