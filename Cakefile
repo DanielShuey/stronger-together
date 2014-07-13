@@ -17,6 +17,14 @@ task 'test', '', ->
   js = s.getConcatenation 'src/patch.coffee', async: false, minify: false, bare: true
   fs.writeFileSync 'test/patch.js', js
 
+  js = s.getConcatenation 'src/examples.coffee', async: false, minify: false, bare: true
+  fs.writeFileSync 'test/examples.js', js
+
   {spawn} = require 'child_process'
-  c = spawn("vows", ["test/test.js","--spec"], {stdio: "inherit"})
-  c.on 'close', -> spawn("vows", ["test/patch.js","--spec"], {stdio: "inherit"})
+
+  # Run in serial because monkey patch
+  a = -> spawn("vows", ["test/test.js","--spec"], {stdio: "inherit"})
+  b = -> spawn("vows", ["test/patch.js","--spec"], {stdio: "inherit"})
+  c = -> spawn("vows", ["test/examples.js","--spec"], {stdio: "inherit"})
+
+  a().on('close', -> b().on('close', -> c()))

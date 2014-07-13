@@ -340,6 +340,37 @@
           return t.walk().should.equal(true);
         }
       }
+    },
+    '#on_include': {
+      'Shark with name tiger with great_white trait': {
+        topic: function() {
+          var Shark;
+          Shark = (function(_super) {
+            var _class;
+
+            __extends(Shark, _super);
+
+            function Shark() {
+              return _class.apply(this, arguments);
+            }
+
+            Shark.trait('great_white', {
+              on_include: function() {
+                return this.name = 'great_white';
+              }
+            });
+
+            _class = Shark.name = 'tiger';
+
+            return Shark;
+
+          })(Traitable);
+          return (new Shark)["with"]('great_white');
+        },
+        'Has name great_white': function(topic) {
+          return topic.name.should === 'great_white';
+        }
+      }
     }
   });
 

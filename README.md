@@ -26,13 +26,14 @@
 ## Detailed Example
 
     class Shark extends Traitable
-      setName: (name) -> @name = name
-
       @trait 'tornado',
         on_include: ->
-          setName('Sharknado')
+          @setName('Sharknado')
 
-        exitTornado: -> ...
+      constructor:
+        @name = 'Just a regular shark'
+
+      setName: (name) -> @name = name
 
 >
 
@@ -43,11 +44,11 @@
 
 #### Static Trait
 
-    class Animal extends Traitable
-      @with Flying
-
     class Flying extends Trait
       fly: -> 'I am flying!'
+
+    class Animal extends Traitable
+      @with Flying
 
 >
 
@@ -103,11 +104,14 @@
 *The on_include is an optional initializer that runs when it is included into an object*
 
     class Shark extends Traitable
-      setName: (name) -> @name = name
-
       @trait 'tornado',
         on_include: ->
-          setName('Sharknado')
+          @setName('Sharknado')
+
+      constructor:
+        @name = 'Just a regular shark'
+
+      setName: (name) -> @name = name
 
 >
 

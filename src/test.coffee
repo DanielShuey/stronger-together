@@ -135,5 +135,20 @@ suite.addBatch
         t.fly().should.equal true
         t.walk().should.equal true
 
+  '#on_include':
+    'Shark with name tiger with great_white trait':
+      topic: ->
+        class Shark extends Traitable
+          @trait 'great_white',
+            on_include: ->
+              @name = 'great_white'
+
+          constructor:
+            @name = 'tiger'
+
+        (new Shark).with('great_white')
+
+      'Has name great_white': (topic) ->
+        topic.name.should == 'great_white'
 
 suite.export module
