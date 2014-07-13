@@ -346,13 +346,7 @@
         topic: function() {
           var Shark;
           Shark = (function(_super) {
-            var _class;
-
             __extends(Shark, _super);
-
-            function Shark() {
-              return _class.apply(this, arguments);
-            }
 
             Shark.trait('great_white', {
               on_include: function() {
@@ -360,7 +354,9 @@
               }
             });
 
-            _class = Shark.name = 'tiger';
+            function Shark() {
+              this.name = 'tiger';
+            }
 
             return Shark;
 
@@ -368,7 +364,7 @@
           return (new Shark)["with"]('great_white');
         },
         'Has name great_white': function(topic) {
-          return topic.name.should === 'great_white';
+          return topic.name.should.equal('great_white');
         }
       }
     }

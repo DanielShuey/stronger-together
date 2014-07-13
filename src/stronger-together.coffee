@@ -23,7 +23,7 @@ class StrongerTogether
       obj[name] = func for name, func of trait
 
     if trait?
-      obj.on_include() if on_include?
+      obj.on_include() if obj.on_include?
       return obj
 
     throw Error "Trait #{key} does not exist"

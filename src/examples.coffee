@@ -10,22 +10,24 @@ suite = vows.describe 'Examples'
 
 suite.addBatch
 
-  'Example 1':
-    topic: ->
-      class Shark extends Traitable
-        @trait 'tornado',
-          on_include: ->
-            @setName('Sharknado')
+  'Example 1': ->
+    class Shark extends Traitable
+      @trait 'tornado',
+        suffix: 'nado'
 
-        constructor:
-          @name = 'Just a regular shark'
+      @trait 'mega',
+        prefix: 'mega'
 
-        setName: (name) -> @name = name
+      prefix: ''
+      suffix: ''
 
-      (new Shark).with('tornado')
+      constructor: ->
+        @title = 'shark'
 
-    'Result': (topic) ->
-      topic.name.should == 'Sharknado'
+      name: -> @prefix + @title + @suffix
+
+    (new Shark).with('tornado').name().should.equal 'sharknado'
+    (new Shark).with('mega').with('tornado').name().should.equal 'megasharknado'
 
   'Example 2': ->
     class Flying extends Trait
@@ -35,7 +37,7 @@ suite.addBatch
       @with Flying
 
     animal = new Animal
-    animal.fly().should == 'I am flying!'
+    animal.fly().should.equal 'I am flying!'
 
   'Example 3': ->
     class Animal extends Traitable
@@ -45,10 +47,10 @@ suite.addBatch
       fly: -> 'I am flying!'
 
     animal = new Animal
-    animal.fly().should == "I flap my arms but I do not get off the ground"
+    animal.fly().should.equal "I flap my arms but I do not get off the ground"
 
     animal = (new Animal).with(Flying)
-    animal.fly().should == "I am flying!"
+    animal.fly().should.equal "I am flying!"
 
   'Example 4': ->
     class Animal extends Traitable
@@ -58,9 +60,22 @@ suite.addBatch
         fly: -> 'I am flying!'
 
     animal = new Animal
-    animal.fly().should == "I flap my arms but I do not get off the ground"
+    animal.fly().should.equal "I flap my arms but I do not get off the ground"
 
     animal = (new Animal).with('flying')
-    animal.fly().should == "I am flying!"
+    animal.fly().should.equal "I am flying!"
+
+  'Example 5': ->
+    class Shark extends Traitable
+      @trait 'tornado',
+        on_include: ->
+          @setName('Sharknado')
+
+      constructor: ->
+        @name = 'Just a regular shark'
+
+      setName: (name) -> @name = name
+
+    (new Shark).with('tornado').name.should.equal 'Sharknado'
 
 suite.export module

@@ -27,18 +27,26 @@
 
     class Shark extends Traitable
       @trait 'tornado',
-        on_include: ->
-          @setName('Sharknado')
+        suffix: 'nado'
 
-      constructor:
-        @name = 'Just a regular shark'
+      @trait 'mega'
+        prefix: 'mega'
 
-      setName: (name) -> @name = name
+      prefix: ''
+      suffix: ''
+
+      constructor: ->
+        @animal = 'shark'
+
+      name: -> @prefix + @title + @suffix
 
 >
 
-    $ (new Shark).with('tornado').name
-    $ => Sharknado
+    $ (new Shark).with('tornado').name()
+    $ => sharknado
+
+    $ (new Shark).with('mega').with('tornado').name()
+    $ => megasharknado
 
 ***
 
@@ -108,7 +116,7 @@
         on_include: ->
           @setName('Sharknado')
 
-      constructor:
+      constructor: ->
         @name = 'Just a regular shark'
 
       setName: (name) -> @name = name

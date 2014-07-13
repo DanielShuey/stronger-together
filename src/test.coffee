@@ -143,12 +143,12 @@ suite.addBatch
             on_include: ->
               @name = 'great_white'
 
-          constructor:
+          constructor: ->
             @name = 'tiger'
 
         (new Shark).with('great_white')
 
       'Has name great_white': (topic) ->
-        topic.name.should == 'great_white'
+        topic.name.should.equal 'great_white'
 
 suite.export module

@@ -16,38 +16,36 @@
   suite = vows.describe('Examples');
 
   suite.addBatch({
-    'Example 1': {
-      topic: function() {
-        var Shark;
-        Shark = (function(_super) {
-          var _class;
+    'Example 1': function() {
+      var Shark;
+      Shark = (function(_super) {
+        __extends(Shark, _super);
 
-          __extends(Shark, _super);
+        Shark.trait('tornado', {
+          suffix: 'nado'
+        });
 
-          function Shark() {
-            return _class.apply(this, arguments);
-          }
+        Shark.trait('mega', {
+          prefix: 'mega'
+        });
 
-          Shark.trait('tornado', {
-            on_include: function() {
-              return this.setName('Sharknado');
-            }
-          });
+        Shark.prototype.prefix = '';
 
-          _class = Shark.name = 'Just a regular shark';
+        Shark.prototype.suffix = '';
 
-          Shark.prototype.setName = function(name) {
-            return this.name = name;
-          };
+        function Shark() {
+          this.title = 'shark';
+        }
 
-          return Shark;
+        Shark.prototype.name = function() {
+          return this.prefix + this.title + this.suffix;
+        };
 
-        })(Traitable);
-        return (new Shark)["with"]('tornado');
-      },
-      'Result': function(topic) {
-        return topic.name.should === 'Sharknado';
-      }
+        return Shark;
+
+      })(Traitable);
+      (new Shark)["with"]('tornado').name().should.equal('sharknado');
+      return (new Shark)["with"]('mega')["with"]('tornado').name().should.equal('megasharknado');
     },
     'Example 2': function() {
       var Animal, Flying, animal;
@@ -78,7 +76,7 @@
 
       })(Traitable);
       animal = new Animal;
-      return animal.fly().should === 'I am flying!';
+      return animal.fly().should.equal('I am flying!');
     },
     'Example 3': function() {
       var Animal, Flying, animal;
@@ -111,9 +109,9 @@
 
       })(Trait);
       animal = new Animal;
-      animal.fly().should === "I flap my arms but I do not get off the ground";
+      animal.fly().should.equal("I flap my arms but I do not get off the ground");
       animal = (new Animal)["with"](Flying);
-      return animal.fly().should === "I am flying!";
+      return animal.fly().should.equal("I am flying!");
     },
     'Example 4': function() {
       var Animal, animal;
@@ -138,22 +136,14 @@
 
       })(Traitable);
       animal = new Animal;
-      animal.fly().should === "I flap my arms but I do not get off the ground";
+      animal.fly().should.equal("I flap my arms but I do not get off the ground");
       animal = (new Animal)["with"]('flying');
-      return animal.fly().should === "I am flying!";
+      return animal.fly().should.equal("I am flying!");
     },
     'Example 5': function() {
       var Shark;
       Shark = (function(_super) {
         __extends(Shark, _super);
-
-        function Shark() {
-          return Shark.__super__.constructor.apply(this, arguments);
-        }
-
-        Shark.prototype.setName = function(name) {
-          return this.name = name;
-        };
 
         Shark.trait('tornado', {
           on_include: function() {
@@ -161,10 +151,18 @@
           }
         });
 
+        function Shark() {
+          this.name = 'Just a regular shark';
+        }
+
+        Shark.prototype.setName = function(name) {
+          return this.name = name;
+        };
+
         return Shark;
 
       })(Traitable);
-      return (new Shark)["with"]('tornado').name.should === "Sharknado";
+      return (new Shark)["with"]('tornado').name.should.equal('Sharknado');
     }
   });
 
