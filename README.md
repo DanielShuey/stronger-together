@@ -13,11 +13,13 @@
 
 
 ##Setup
-> Will be updated to NPM when I'm satisfied with it
+Will be updated to NPM when I'm satisfied with it
+
+> Use this if you hate monkey patches
 
 `require('stronger-together.js').load()`
 
-> *Patch all objects (don't need to extend Traitable)*
+> *Patch all objects (so you don't need to extend Traitable)*
 
 `require('stronger-together.js').patch()`
 
