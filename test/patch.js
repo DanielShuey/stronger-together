@@ -56,10 +56,10 @@
         'stores "bar" in traits datastore': function(traitable) {
           return ('bar' in traitable.traits()).should.equal(true);
         },
-        'Traitable function should be false': function(traitable) {
+        'TraitableTwo function should be false': function(traitable) {
           return TraitableTwo.traits()['bar'].a_method().should.equal(false);
         },
-        'SecondTraitable function should be true': function(traitable) {
+        'TraitableThree function should be true': function(traitable) {
           return traitable.traits()['bar'].a_method().should.equal(true);
         }
       }

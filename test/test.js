@@ -71,10 +71,10 @@
         'stores "bar" in traits datastore': function(traitable) {
           return ('bar' in traitable.traits()).should.equal(true);
         },
-        'Traitable function should be false': function(traitable) {
+        'SecondTraitable function should be false': function(traitable) {
           return SecondTraitable.traits()['bar'].a_method().should.equal(false);
         },
-        'SecondTraitable function should be true': function(traitable) {
+        'ThirdTraitable function should be true': function(traitable) {
           return traitable.traits()['bar'].a_method().should.equal(true);
         }
       },
@@ -195,6 +195,42 @@
         },
         'Traitable#fly returns true': function(topic) {
           return topic.fly().should.equal(true);
+        }
+      },
+      'Create another instance of same Traitable': {
+        topic: function() {
+          var Bird, Flyer;
+          Flyer = (function(_super) {
+            __extends(Flyer, _super);
+
+            function Flyer() {
+              return Flyer.__super__.constructor.apply(this, arguments);
+            }
+
+            Flyer.prototype.fly = function() {
+              return true;
+            };
+
+            return Flyer;
+
+          })(Trait);
+          Bird = (function(_super) {
+            __extends(Bird, _super);
+
+            function Bird() {
+              return Bird.__super__.constructor.apply(this, arguments);
+            }
+
+            return Bird;
+
+          })(Traitable);
+          (new Bird)["with"](Flyer);
+          return new Bird;
+        },
+        'Traitable#fly throws error': function(topic) {
+          return assert.throws((function() {
+            return topic.fly();
+          }), Error);
         }
       },
       'Mix into Traitable instance, a Sub-trait with method "fly" that returns true': {

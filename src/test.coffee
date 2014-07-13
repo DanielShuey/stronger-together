@@ -32,10 +32,10 @@ suite.addBatch
       'stores "bar" in traits datastore': (traitable) ->
         ('bar' of traitable.traits()).should.equal true
 
-      'Traitable function should be false': (traitable) ->
+      'SecondTraitable function should be false': (traitable) ->
         SecondTraitable.traits()['bar'].a_method().should.equal false
 
-      'SecondTraitable function should be true': (traitable) ->
+      'ThirdTraitable function should be true': (traitable) ->
         traitable.traits()['bar'].a_method().should.equal true
 
 
@@ -83,6 +83,17 @@ suite.addBatch
 
       'Traitable#fly returns true': (topic) ->
         topic.fly().should.equal true
+
+    'Create another instance of same Traitable':
+      topic: ->
+        class Flyer extends Trait
+          fly: -> true
+        class Bird extends Traitable
+        (new Bird).with(Flyer)
+        new Bird
+
+      'Traitable#fly throws error': (topic) ->
+        assert.throws (-> topic.fly()), Error
 
     'Mix into Traitable instance, a Sub-trait with method "fly" that returns true':
       topic: ->

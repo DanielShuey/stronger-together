@@ -18,4 +18,5 @@ task 'test', '', ->
   fs.writeFileSync 'test/patch.js', js
 
   {spawn} = require 'child_process'
-  spawn("vows", ["test/test.js","test/patch.js","--spec"], {stdio: "inherit"})
+  c = spawn("vows", ["test/test.js","--spec"], {stdio: "inherit"})
+  c.on 'close', -> spawn("vows", ["test/patch.js","--spec"], {stdio: "inherit"})
