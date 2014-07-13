@@ -36,7 +36,7 @@
       suffix: ''
 
       constructor: ->
-        @animal = 'shark'
+        @title = 'shark'
 
       name: -> @prefix + @title + @suffix
 
