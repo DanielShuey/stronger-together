@@ -1,3 +1,7 @@
+Incomplete: I need to complete this at some stage for educational purposes.
+
+(<https://en.wikipedia.org/wiki/Trait_(computer_programming)>)
+
 # Stronger Together
 *Dynamic traits for Javascript*
 
