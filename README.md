@@ -2,6 +2,15 @@ Incomplete: I need to complete this at some stage for educational purposes.
 
 (<https://en.wikipedia.org/wiki/Trait_(computer_programming)>)
 
+Dynamic Traits have taken on a slightly different meaning via Rust
+(<https://cs.wellesley.edu/~avh/dyn-trait-icse-seip-2022-preprint.pdf>)
+
+This feature seems to be closer to a concept called "Talents".
+> Like a trait, a talent represents a set of methods that constitute part of the behavior of an object. 
+> Unlike traits, talents can be acquired (or lost) dynamically. 
+    
+(<https://scg.unibe.ch/archive/papers/Ress11a-Talents.pdf>)
+
 # Stronger Together
 *Dynamic traits for Javascript*
 
